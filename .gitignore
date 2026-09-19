@@ -16,3 +16,4 @@ outputs/
 data/*.db
 data/*.sqlite
 data/*.sqlite3
+data/WELFake_Dataset.csv
