@@ -1,0 +1,40 @@
+TruthLens AI V2
+============================
+Base model: bert-base-uncased
+Datasets: WELFake + cleaned ISOT
+Labels: 0=FAKE, 1=REAL
+Max length: 256
+Epochs: 3
+Learning rate: 2e-05
+Training batch: 8
+Gradient accumulation: 2
+Effective batch: 16
+Warmup steps: 730
+Combined training samples: 77910
+WELFake validation samples: 6329
+WELFake test samples: 6329
+ISOT external samples: 6819
+
+WELFake TEST METRICS
+welfake_test_loss: 0.051916640251874924
+welfake_test_accuracy: 0.9924158634855428
+welfake_test_precision: 0.9964564138908576
+welfake_test_recall: 0.9866666666666667
+welfake_test_f1: 0.9915373765867419
+welfake_test_roc_auc: 0.9997715617010333
+welfake_test_runtime: 41.5684
+welfake_test_samples_per_second: 152.255
+welfake_test_steps_per_second: 19.053
+epoch: 3.0
+
+ISOT EXTERNAL METRICS
+isot_external_loss: 0.05996786057949066
+isot_external_accuracy: 0.9913477049420736
+isot_external_precision: 0.9846732215153268
+isot_external_recall: 0.9982409850483729
+isot_external_f1: 0.9914106856893289
+isot_external_roc_auc: 0.9993682411089226
+isot_external_runtime: 44.7544
+isot_external_samples_per_second: 152.365
+isot_external_steps_per_second: 19.06
+epoch: 3.0

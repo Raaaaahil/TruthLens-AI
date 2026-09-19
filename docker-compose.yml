@@ -1,0 +1,61 @@
+services:
+  truthlens-backend:
+    image: truthlens-backend:1.0
+    container_name: truthlens-backend
+
+    ports:
+      - "${TRUTHLENS_PORT:-8000}:8000"
+
+    environment:
+      TRUTHLENS_VERSION: "${TRUTHLENS_VERSION:-1.1.0}"
+      TRUTHLENS_HOST: "0.0.0.0"
+      TRUTHLENS_PORT: "8000"
+      TRUTHLENS_DB: "${TRUTHLENS_DB:-/app/data/truthlens_jobs.db}"
+
+      TRUTHLENS_MAX_TEXT_CHARS: "${TRUTHLENS_MAX_TEXT_CHARS:-20000}"
+      TRUTHLENS_MAX_URL_LENGTH: "${TRUTHLENS_MAX_URL_LENGTH:-2048}"
+      TRUTHLENS_MAX_IMAGE_BYTES: "${TRUTHLENS_MAX_IMAGE_BYTES:-8388608}"
+
+      TRUTHLENS_JOB_RETENTION_HOURS: "${TRUTHLENS_JOB_RETENTION_HOURS:-24}"
+      TRUTHLENS_VERIFY_WORKERS: "${TRUTHLENS_VERIFY_WORKERS:-2}"
+      TRUTHLENS_LOG_LEVEL: "${TRUTHLENS_LOG_LEVEL:-INFO}"
+
+      TRUTHLENS_CORS_ORIGINS: "${TRUTHLENS_CORS_ORIGINS:-http://localhost:5173,http://127.0.0.1:5173}"
+
+    volumes:
+      - truthlens-data:/app/data
+      - truthlens-models:/app/models
+
+    gpus: all
+
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 120s
+      retries: 3
+
+  truthlens-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    container_name: truthlens-frontend
+
+    ports:
+      - "5173:80"
+
+    depends_on:
+      truthlens-backend:
+        condition: service_healthy
+
+    restart: unless-stopped
+
+volumes:
+  truthlens-data:
+    name: truthlens-data
+
+  truthlens-models:
+    name: truthlens-models

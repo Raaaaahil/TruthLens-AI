@@ -1,0 +1,125 @@
+# ============================================================
+# TruthLens AI - Production Backend
+# CUDA 12.8 + cuDNN + Python 3.12
+# ============================================================
+
+FROM nvidia/cuda:12.8.1-cudnn-runtime-ubuntu24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PIP_NO_CACHE_DIR=1
+
+# ------------------------------------------------------------
+# System dependencies
+# ------------------------------------------------------------
+
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    python3-venv \
+    python3-dev \
+    build-essential \
+    git \
+    curl \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender1 \
+    libgomp1 \
+    libgl1 \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# ------------------------------------------------------------
+# Application directory
+# ------------------------------------------------------------
+
+WORKDIR /app
+
+# ------------------------------------------------------------
+# PyTorch CUDA 12.8
+# ------------------------------------------------------------
+
+RUN python3 -m pip install --break-system-packages \
+    torch==2.11.0 \
+    torchvision==0.26.0 \
+    torchaudio==2.11.0 \
+    --index-url https://download.pytorch.org/whl/cu128
+
+# ------------------------------------------------------------
+# Python dependencies
+# ------------------------------------------------------------
+
+RUN python3 -m pip install --break-system-packages \
+    fastapi \
+    "uvicorn[standard]" \
+    pydantic \
+    numpy \
+    pandas \
+    scikit-learn \
+    scipy \
+    requests \
+    httpx \
+    beautifulsoup4 \
+    lxml \
+    trafilatura \
+    python-multipart \
+    transformers \
+    accelerate \
+    sentencepiece \
+    safetensors \
+    tokenizers \
+    easyocr \
+    opencv-python-headless \
+    Pillow \
+    shap \
+    lime
+
+# ------------------------------------------------------------
+# Copy application
+# ------------------------------------------------------------
+
+COPY backend ./backend
+COPY src ./src
+
+# Model files are copied into the image.
+# This makes the image self-contained for deployment.
+COPY models ./models
+
+# Runtime data directory
+RUN mkdir -p /app/data
+
+# ------------------------------------------------------------
+# Environment
+# ------------------------------------------------------------
+
+ENV TRUTHLENS_HOST=0.0.0.0
+ENV TRUTHLENS_PORT=8000
+ENV TRUTHLENS_DB=/app/data/truthlens_jobs.db
+ENV TRUTHLENS_VERSION=1.1.0
+
+# Production CORS can be overridden at runtime.
+ENV TRUTHLENS_CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+
+# ------------------------------------------------------------
+# API port
+# ------------------------------------------------------------
+
+EXPOSE 8000
+
+# ------------------------------------------------------------
+# Health check
+# ------------------------------------------------------------
+
+HEALTHCHECK --interval=30s \
+            --timeout=10s \
+            --start-period=120s \
+            --retries=3 \
+    CMD curl --fail http://127.0.0.1:8000/health || exit 1
+
+# ------------------------------------------------------------
+# Start FastAPI
+# ------------------------------------------------------------
+
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000", "--no-access-log", "--timeout-keep-alive", "30"]
