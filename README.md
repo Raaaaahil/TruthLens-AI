@@ -2124,7 +2124,7 @@ The system is intended to **assist users in evaluating information**, not to mak
 
 ---
 
-# ❤️ Acknowledgements
+# Acknowledgements
 
 We acknowledge the researchers and organizations behind the datasets, transformer architectures, NLP libraries, OCR technologies, and open-source tools that made this project possible.
 
