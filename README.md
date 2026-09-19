@@ -2045,11 +2045,11 @@ git push origin main
 
 ---
 
-# 📜 License
+## 📜 License
 
-A license file should be added to the repository before distributing TruthLens AI as an open-source project.
+TruthLens AI is licensed under the [MIT License](LICENSE).
 
-If the project is intended to remain an academic/private repository, keep the repository access and usage terms aligned with the team's university/project requirements.
+Copyright © 2026 Intakhab Nabi.
 
 ---
 
