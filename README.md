@@ -52,8 +52,8 @@ The project is developed as a **Bachelor of Technology (B.Tech) Computer Science
 
 | Name | Role / Area |
 |---|---|
-| **Intakhab Nabi** | AI/ML / Backend / System Integration | Development / Integration |
-| **Syed Ayan Ahmad** | XAI / Testing / NLP / ML |
+| **Intakhab Nabi** | AI/ML / Backend / System Integration / Testing / Development |
+| **Syed Ayan Ahmad** | XAI / Frontend / NLP / ML / Testing|
 | **Faraz Nasim Kidwai** | Research Lead / Documentation |
 | **Fareed Khan** | Research Associate / Literature Reviewer  |
 
