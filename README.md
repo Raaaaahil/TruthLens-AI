@@ -2076,22 +2076,23 @@ The system is intended to **assist users in evaluating information**, not to mak
 ```text
 ┌─────────────────────────────────────────────────────────────┐
 │                        TRUTHLENS AI                         │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  📰 Text Analysis          → BERT V2                       │
-│  🔗 URL Analysis           → Article Extraction            │
-│  🖼️ Screenshot Analysis    → EasyOCR                       │
-│  🌍 Multilingual NLP       → Detection + Translation       │
-│  🧠 Explainable AI        → Token + Sentence Importance    │
-│  🔎 Claim Verification     → Claim Extraction              │
-│  📚 Evidence Retrieval     → Open-Web Evidence             │
-│  ⚖️ NLI Verification       → Evidence Comparison           │
-│  ⚡ Model Serving           → GPU + FP16 + Micro-Batching  │
-│  💾 Persistence             → SQLite Verification Jobs     │
-│  🎨 Frontend               → React + TypeScript + Vite     │
-│  🚀 Deployment             → Docker + Docker Compose       │
-│                                                            │
-└────────────────────────────────────────────────────────────┘
+├─────────────────────────────────────────────────────────────│
+│                                                             
+│  📰 Text Analysis          → BERT V2                       
+│                      
+│  🔗 URL Analysis           → Article Extraction            
+│  🖼️ Screenshot Analysis    → EasyOCR                       
+│  🌍 Multilingual NLP       → Detection + Translation       
+│  🧠 Explainable AI        → Token + Sentence Importance    
+│  🔎 Claim Verification     → Claim Extraction              
+│  📚 Evidence Retrieval     → Open-Web Evidence             
+│  ⚖️ NLI Verification       → Evidence Comparison           
+│  ⚡ Model Serving           → GPU + FP16 + Micro-Batching  
+│  💾 Persistence             → SQLite Verification Jobs     
+│  🎨 Frontend               → React + TypeScript + Vite     
+│  🚀 Deployment             → Docker + Docker Compose       
+│                                                              
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ---
